@@ -51,5 +51,19 @@ namespace Capture
         {
             buttonCapture.Enabled = (listBox1.SelectedIndex > -1) ? true : false;
         }
+
+        private void buttonCapture_Click(object sender, EventArgs e)
+        {
+            Spectrometer spectrometer = new();
+
+            if (spectrometer.ShowDialog(this) == DialogResult.OK)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
     }
 }

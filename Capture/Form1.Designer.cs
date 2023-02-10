@@ -138,6 +138,7 @@
             this.buttonCapture.TabIndex = 5;
             this.buttonCapture.Text = "Capture";
             this.buttonCapture.UseVisualStyleBackColor = true;
+            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
             // 
             // listBox1
             // 

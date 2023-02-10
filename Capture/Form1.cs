@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Capture
 {
     public partial class Form1 : Form
@@ -12,121 +10,46 @@ namespace Capture
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            List<Model_Catalogue> lightSources = db.readCatalogue();
+            List<Model_Table_Name> tables = db.readTableNames();
+
             listBox1.Items.Clear();
-        }
+            buttonCapture.Enabled = false;
 
-        private void addMicrscopeManufacturerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAddManufacturer microscopeManufacturer = new()
+            foreach (Model_Catalogue lightSource in lightSources)
             {
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MaximizeBox = false,
-                MinimizeBox = false,
-                Height = 200,
-                Width = 300
-            };
+                String TableName = lightSource.lightSourceManufacturer.ToUpper() + "__" + lightSource.lightSourceName.ToUpper();
+                TableName = TableName.Replace(' ', '_');
 
-            if (microscopeManufacturer.ShowDialog(this) == DialogResult.OK)
-            {
-                String? newMicroscopeManufacturerName = microscopeManufacturer.name;
+                var searchResult = tables.Find(tables => tables.TABLE_NAME == TableName);
 
-                if (newMicroscopeManufacturerName.Length > 0)
+                if (searchResult == null)
                 {
-                    var manufacturers = db.readMicroscopeManufacturer();
+                    var mBoxReply = MessageBox.Show("Do you want to create a database table: " + TableName, "Warning", MessageBoxButtons.YesNo);
 
-                    var result = manufacturers.Find(manufacturers => manufacturers.name == newMicroscopeManufacturerName);
-
-                    if (result != null)
+                    if (mBoxReply == DialogResult.Yes)
                     {
-                        MessageBox.Show("The Microscope Manufacturer is already listed.");
+                        db.creatTable(TableName);
+                        listBox1.Items.Add(string.Format("{0} - {1}", lightSource.lightSourceManufacturer, lightSource.lightSourceName));
                     }
                     else
                     {
-                        db.writeMicroscopeManufacturer(newMicroscopeManufacturerName);
+                        /* Take no action */
                     }
                 }
-            }
-            else
-            {
-                /* Take no action. */
-            }
-
-            microscopeManufacturer.Dispose();
-        }
-
-        private void addLightSourceManufacturerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAddManufacturer lightSourceManufacturer = new()
-            {
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MaximizeBox = false,
-                MinimizeBox = false,
-                Height = 200,
-                Width = 300
-            };
-
-            if (lightSourceManufacturer.ShowDialog(this) == DialogResult.OK)
-            {
-               String? newLightSourceManufacturerName = lightSourceManufacturer.name;
-
-                if (newLightSourceManufacturerName.Length > 0)
+                else
                 {
-                    var manufacturers = db.readLightSourceManufacturer();
-
-                    var result = manufacturers.Find(manufacturers => manufacturers.name == newLightSourceManufacturerName);
-
-                    if (result != null)
-                    {
-                        MessageBox.Show("The Light Source Manufacturer is already listed.");
-                    }
-                    else
-                    {
-                        db.writeLightSourceManufacturer(newLightSourceManufacturerName);
-                    }
+                    listBox1.Items.Add(string.Format("{0} - {1}", lightSource.lightSourceManufacturer, lightSource.lightSourceName));
                 }
             }
-            else
-            {
-                /* Take no action. */
-            }
 
-            lightSourceManufacturer.Dispose();
+            //String test  = (ConfigurationManager.AppSettings["PathData"] + "\\test.csv");
+
         }
 
-        private void addLightSourceToolStripMenuItem_Click(object sender, EventArgs e)
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FormAddScopeOrLight addLight = new()
-            {
-                Text = "Add Light Source"
-            };
-
-            if(addLight.ShowDialog(this) == DialogResult.OK)
-            {
-
-            }
-            else
-            {
-                /* Cancelled */
-            }
-        }
-
-        private void addMicroscopeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAddScopeOrLight addMicroscope = new()
-            {
-                Text = "Add Microscope"
-            };
-
-            if (addMicroscope.ShowDialog(this) == DialogResult.OK)
-            {
-
-            }
-            else
-            {
-                /* Cancelled */
-            }
+            buttonCapture.Enabled = (listBox1.SelectedIndex > -1) ? true : false;
         }
     }
 }

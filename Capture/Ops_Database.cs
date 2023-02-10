@@ -1,9 +1,5 @@
 ﻿using Dapper;
-using System.Collections.Generic;
-using System;
 using System.Data;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
-using System.Windows.Forms;
 
 namespace Capture
 {
@@ -44,7 +40,7 @@ namespace Capture
 
         private void writeGenericRecord(String recordTable, String recordName)
         {
-            string sql = string.Format("INSERT INTO [dbo].[{0}]([name]) VALUES (@name)",recordTable);
+            string sql = string.Format("INSERT INTO [dbo].[{0}]([name]) VALUES (@name)", recordTable);
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
             {
@@ -66,6 +62,44 @@ namespace Capture
             }
 
             return record;
+        }
+
+        public void creatTable(String tableName)
+        {
+            String sql = String.Format("CREATE TABLE [characterisation].[dbo].[{0}]([uniqueID] [int] IDENTITY(1,1) NOT NULL,[recordDate] [datetime] NOT NULL,[recordPath] [varchar](250) NOT NULL)", tableName);
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                var r = connection.Execute(sql);
+            }
+        }
+
+        public List<Model_Table_Name> readTableNames()
+        {
+            List<Model_Table_Name> tables = new();
+
+            String sql = String.Format("SELECT TABLE_NAME FROM[characterisation].INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'");
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                tables = (List<Model_Table_Name>)connection.Query<Model_Table_Name>(sql);
+            }
+
+            return tables;
+        }
+
+        public List<Model_Catalogue> readCatalogue()
+        {
+            List<Model_Catalogue> records = new();
+
+            string sql = String.Format("SELECT * FROM [characterisation].[dbo].[catalogue] ORDER BY [lightSourceManufacturer] ASC, [lightSourceName] ASC");
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                records = (List<Model_Catalogue>)connection.Query<Model_Catalogue>(sql);
+            }
+
+            return (records);
         }
     }
 }

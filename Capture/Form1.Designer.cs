@@ -85,28 +85,24 @@
             this.addLightSourceManufacturerToolStripMenuItem.Name = "addLightSourceManufacturerToolStripMenuItem";
             this.addLightSourceManufacturerToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.addLightSourceManufacturerToolStripMenuItem.Text = "Add Light Source Manufacturer";
-            this.addLightSourceManufacturerToolStripMenuItem.Click += new System.EventHandler(this.addLightSourceManufacturerToolStripMenuItem_Click);
             // 
             // addLightSourceToolStripMenuItem
             // 
             this.addLightSourceToolStripMenuItem.Name = "addLightSourceToolStripMenuItem";
             this.addLightSourceToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.addLightSourceToolStripMenuItem.Text = "Add Light Source";
-            this.addLightSourceToolStripMenuItem.Click += new System.EventHandler(this.addLightSourceToolStripMenuItem_Click);
             // 
             // addMicrscopeManufacturerToolStripMenuItem
             // 
             this.addMicrscopeManufacturerToolStripMenuItem.Name = "addMicrscopeManufacturerToolStripMenuItem";
             this.addMicrscopeManufacturerToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.addMicrscopeManufacturerToolStripMenuItem.Text = "Add Microscope Manufacturer";
-            this.addMicrscopeManufacturerToolStripMenuItem.Click += new System.EventHandler(this.addMicrscopeManufacturerToolStripMenuItem_Click);
             // 
             // addMicroscopeToolStripMenuItem
             // 
             this.addMicroscopeToolStripMenuItem.Name = "addMicroscopeToolStripMenuItem";
             this.addMicroscopeToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
             this.addMicroscopeToolStripMenuItem.Text = "Add Microscope";
-            this.addMicroscopeToolStripMenuItem.Click += new System.EventHandler(this.addMicroscopeToolStripMenuItem_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -153,6 +149,7 @@
             this.tableLayoutPanel2.SetRowSpan(this.listBox1, 3);
             this.listBox1.Size = new System.Drawing.Size(417, 216);
             this.listBox1.TabIndex = 4;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // statusStrip1
             // 

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Capture
 {
-    public class Model_Light_Source
+    public class Model_Catalogue
     {
         public int uniqueID { get; set; }
-        public DateTime created { get; set; }
-        public String? name { get; set; }
+        public DateTime recordDate { get; set; }
+        public String? lightSourceName { get; set; }
+        public String? lightSourceManufacturer { get; set;}
     }
 }

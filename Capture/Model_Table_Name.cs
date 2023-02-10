@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Capture
 {
-    public class Model_Microscope
+    public class Model_Table_Name
     {
+        public String TABLE_NAME { get; set; }
     }
 }

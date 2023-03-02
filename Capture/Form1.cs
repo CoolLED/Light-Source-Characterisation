@@ -1,3 +1,7 @@
+using Microsoft.Identity.Client;
+using NetOceanDirect;
+using System.Configuration;
+
 namespace Capture
 {
     public partial class Form1 : Form
@@ -54,11 +58,23 @@ namespace Capture
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
-            Spectrometer spectrometer = new();
+            FormSpectrometer formSpectrometer = new();
 
-            if (spectrometer.ShowDialog(this) == DialogResult.OK)
+            if (formSpectrometer.ShowDialog(this) == DialogResult.OK)
             {
+                mSpectrometerSettings settings = formSpectrometer.spectrometerSettings;
+                cSpectrometer spectrometer = new();
 
+                var error = spectrometer.Initialise(ConfigurationManager.AppSettings["PathCalFile"], settings);
+
+                if(error == cSpectrometer.ErrorMessage.None)
+                {
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Spectrometer initialisation failed.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

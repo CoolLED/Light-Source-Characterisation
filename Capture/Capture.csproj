@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="NetOceanDirect">
-      <HintPath>..\..\..\..\..\..\Program Files\Ocean Insight\OceanDirect SDK\lib\NetOceanDirect.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Ocean Insight\OceanDirect SDK\lib\NetOceanDirect.dll</HintPath>
     </Reference>
   </ItemGroup>
 

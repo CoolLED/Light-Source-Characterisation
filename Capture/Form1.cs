@@ -80,6 +80,8 @@ namespace Capture
             {
 
             }
+
+            // Capture spectrum
         }
     }
 }

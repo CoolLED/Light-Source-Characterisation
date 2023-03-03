@@ -125,8 +125,6 @@ namespace Capture
 
             String serialNo = String.Empty;
 
-            SpectrometerInitialised = false;
-
             int i = 0, errorCode = 0;
 
             bool run = true;
@@ -203,7 +201,6 @@ namespace Capture
                         if (serialNo == calibrationFile.Spectrometer)
                         {
                             DeviceID = devices[i].Id;
-                            SpectrometerInitialised = true;
                             state = IniProcessState.SetIntegrationTime;
                         }
                         else
@@ -368,7 +365,7 @@ namespace Capture
         public ErrorMessage ProcessSpecturm (int intgrationTime, double collectionArea)
         {
             ErrorMessage error = ErrorMessage.UndefinedError;
-            List<double> asi= new());
+            List<double> asi = new();
 
             if ((lightScanData != null) && (darkScanData != null) && (calibrationFile.Energy != null))
             {

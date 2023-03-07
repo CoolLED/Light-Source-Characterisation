@@ -362,7 +362,7 @@ namespace Capture
         /// <returns>
         /// Error an error flag - 0 when calulation was successfull or 1 when an error has ocurred.
         /// </returns>
-        public ErrorMessage ProcessSpecturm (int intgrationTime, double collectionArea)
+        public ErrorMessage ProcessSpectrum (int intgrationTime, double collectionArea)
         {
             ErrorMessage error = ErrorMessage.UndefinedError;
             List<double> asi = new();
@@ -385,14 +385,14 @@ namespace Capture
                     absoluteSpectralIrradianceData[i] = ((lightScanData[i] - darkScanData[i]) * calibrationFile.Energy[i]);
 
                     /*
-                     * Compute the power - Watts (Joulse/Second)
+                     * Compute the power - Watts (Joules/Second)
                      */
                     absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / intgrationTime);
 
                     /*
                      * Scaling for the collection area.
                      */
-                    absoluteSpectralIrradianceData[i] = ((1 / collectionArea) * absoluteSpectralIrradianceData[i]);
+                    absoluteSpectralIrradianceData[i] = absoluteSpectralIrradianceData[i] / collectionArea;
                 }
             }
             else

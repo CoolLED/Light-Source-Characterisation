@@ -37,7 +37,7 @@ namespace Capture
             comboBoxTrigMode.Enabled = false;
         }
 
-        private void buttonCapture_Click(object sender, EventArgs e)
+        private void buttonSet_Click(object sender, EventArgs e)
         {
             spectrometerSettings.StrobEnable = checkBoxStrobeEn.Checked; 
 

@@ -18,7 +18,7 @@ namespace Capture
             List<Model_Table_Name> tables = db.readTableNames();
 
             listBox1.Items.Clear();
-            buttonCapture.Enabled = false;
+            buttonSetupSpectrometer.Enabled = false;
 
             foreach (Model_Catalogue lightSource in lightSources)
             {
@@ -53,10 +53,10 @@ namespace Capture
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonCapture.Enabled = (listBox1.SelectedIndex > -1) ? true : false;
+            buttonSetupSpectrometer.Enabled = (listBox1.SelectedIndex > -1) ? true : false;
         }
 
-        private void buttonCapture_Click(object sender, EventArgs e)
+        private void buttonSetupSpectrometer_Click(object sender, EventArgs e)
         {
             FormSpectrometer formSpectrometer = new();
 
@@ -80,8 +80,34 @@ namespace Capture
             {
 
             }
+        }
 
-            // Capture spectrum
+        private void buttonCapture_Click(object sender, EventArgs e)
+        {
+            FormCapture formCapture = new();
+
+            if (formCapture.ShowDialog(this) == DialogResult.OK)
+            {
+                DialogResult result = MessageBox.Show("Would you like to save the data?", "Query?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    DateTime timestamp = DateTime.Now;
+
+                    // Save csv
+                    
+
+                    // Save to db
+                }
+                else
+                {
+                    MessageBox.Show("Data not saved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

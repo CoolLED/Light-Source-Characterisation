@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,9 +38,10 @@
             this.addMicrscopeManufacturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addMicroscopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonCapture = new System.Windows.Forms.Button();
+            this.buttonSetupSpectrometer = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.buttonCapture = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -112,8 +114,9 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Controls.Add(this.buttonCapture, 2, 4);
+            this.tableLayoutPanel2.Controls.Add(this.buttonSetupSpectrometer, 2, 4);
             this.tableLayoutPanel2.Controls.Add(this.listBox1, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.buttonCapture, 2, 5);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -129,16 +132,16 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(784, 592);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // buttonCapture
+            // buttonSetupSpectrometer
             // 
-            this.buttonCapture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCapture.Location = new System.Drawing.Point(183, 299);
-            this.buttonCapture.Name = "buttonCapture";
-            this.buttonCapture.Size = new System.Drawing.Size(417, 68);
-            this.buttonCapture.TabIndex = 5;
-            this.buttonCapture.Text = "Capture";
-            this.buttonCapture.UseVisualStyleBackColor = true;
-            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
+            this.buttonSetupSpectrometer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonSetupSpectrometer.Location = new System.Drawing.Point(183, 299);
+            this.buttonSetupSpectrometer.Name = "buttonSetupSpectrometer";
+            this.buttonSetupSpectrometer.Size = new System.Drawing.Size(417, 68);
+            this.buttonSetupSpectrometer.TabIndex = 5;
+            this.buttonSetupSpectrometer.Text = "Set Up Spectrometer";
+            this.buttonSetupSpectrometer.UseVisualStyleBackColor = true;
+            this.buttonSetupSpectrometer.Click += new System.EventHandler(this.buttonSetupSpectrometer_Click);
             // 
             // listBox1
             // 
@@ -160,6 +163,17 @@
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // buttonCapture
+            // 
+            this.buttonCapture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCapture.Location = new System.Drawing.Point(183, 373);
+            this.buttonCapture.Name = "buttonCapture";
+            this.buttonCapture.Size = new System.Drawing.Size(417, 68);
+            this.buttonCapture.TabIndex = 6;
+            this.buttonCapture.Text = "Capture";
+            this.buttonCapture.UseVisualStyleBackColor = true;
+            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -168,6 +182,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -192,9 +207,10 @@
         private ToolStripMenuItem addMicroscopeToolStripMenuItem;
         private ToolStripMenuItem addMicrscopeManufacturerToolStripMenuItem;
         private TableLayoutPanel tableLayoutPanel2;
-        private Button buttonCapture;
+        private Button buttonSetupSpectrometer;
         private ListBox listBox1;
         private StatusStrip statusStrip1;
         private ToolStripMenuItem addLightSourceManufacturerToolStripMenuItem;
+        private Button buttonCapture;
     }
 }

@@ -362,7 +362,7 @@ namespace Capture
         /// <returns>
         /// Error an error flag - 0 when calulation was successfull or 1 when an error has ocurred.
         /// </returns>
-        public ErrorMessage ProcessSpectrum (int intgrationTime, double collectionArea)
+        public ErrorMessage ProcessSpectrum (double collectionArea)
         {
             ErrorMessage error = ErrorMessage.UndefinedError;
             List<double> asi = new();
@@ -387,7 +387,7 @@ namespace Capture
                     /*
                      * Compute the power - Watts (Joules/Second)
                      */
-                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / intgrationTime);
+                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / SpectrometerSettings.IntegrationTime);
 
                     /*
                      * Scaling for the collection area.

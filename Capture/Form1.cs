@@ -1,12 +1,15 @@
 using Microsoft.Identity.Client;
 using NetOceanDirect;
 using System.Configuration;
+using System.Threading;
 
 namespace Capture
 {
     public partial class Form1 : Form
     {
         Ops_Database db = new();
+        cSpectrometer spectrometer = new();
+
         public Form1()
         {
             InitializeComponent();
@@ -63,7 +66,7 @@ namespace Capture
             if (formSpectrometer.ShowDialog(this) == DialogResult.OK)
             {
                 mSpectrometerSettings settings = formSpectrometer.spectrometerSettings;
-                cSpectrometer spectrometer = new();
+
 
                 var error = spectrometer.Initialise(ConfigurationManager.AppSettings["PathCalFile"], settings);
 
@@ -84,19 +87,33 @@ namespace Capture
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
-            FormCapture formCapture = new();
+            DialogResult result;
 
-            if (formCapture.ShowDialog(this) == DialogResult.OK)
+            result = MessageBox.Show("Please turn off the light source.", "Process information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
             {
-                DialogResult result = MessageBox.Show("Would you like to save the data?", "Query?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                spectrometer.DarkScan();
+            }
 
-                if (result == DialogResult.Yes)
+            result = MessageBox.Show("Please turn on the light source.", "Process information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                Thread.Sleep(500);
+                spectrometer.LightScan();
+            }
+
+            double collectionArea = Convert.ToDouble(ConfigurationManager.AppSettings.Get("Collection Area"));
+            spectrometer.ProcessSpectrum(collectionArea);
+
+            result = MessageBox.Show("Would you like to save the data?", "Query?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                DateTime timestamp = DateTime.Now;
+
+                // Save csv
+                if (writeCSV(timestamp) == true)
                 {
-                    DateTime timestamp = DateTime.Now;
-
-                    // Save csv
-                    
-
                     // Save to db
                 }
                 else
@@ -106,8 +123,18 @@ namespace Capture
             }
             else
             {
-
+                MessageBox.Show("Data not saved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private bool writeCSV(DateTime ts)
+        {
+            bool flag = false;
+            // Write headers
+            // Write data
+            flag = true;
+
+            return flag;
         }
     }
 }

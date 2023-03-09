@@ -25,7 +25,8 @@ namespace Capture
 
             foreach (Model_Catalogue lightSource in lightSources)
             {
-                String TableName = lightSource.lightSourceManufacturer.ToUpper() + "__" + lightSource.lightSourceName.ToUpper();
+                String TableName = lightSource.lightSourceManufacturer.ToUpper() + "__" + lightSource.lightSourceName.ToUpper() +
+                    "__" + lightSource.microscope.ToUpper() + "__" + lightSource.microscopeObjective.ToUpper();
                 TableName = TableName.Replace(' ', '_');
 
                 var searchResult = tables.Find(tables => tables.TABLE_NAME == TableName);
@@ -37,7 +38,8 @@ namespace Capture
                     if (mBoxReply == DialogResult.Yes)
                     {
                         db.creatTable(TableName);
-                        listBox1.Items.Add(string.Format("{0} - {1}", lightSource.lightSourceManufacturer, lightSource.lightSourceName));
+                        listBox1.Items.Add(string.Format("{0} {1} - {2} {3}", lightSource.lightSourceManufacturer, lightSource.lightSourceName,
+                            lightSource.microscope, lightSource.microscopeObjective));
                     }
                     else
                     {
@@ -46,12 +48,24 @@ namespace Capture
                 }
                 else
                 {
-                    listBox1.Items.Add(string.Format("{0} - {1}", lightSource.lightSourceManufacturer, lightSource.lightSourceName));
+                    listBox1.Items.Add(string.Format("{0} {1} - {2} {3}", lightSource.lightSourceManufacturer, lightSource.lightSourceName,
+                        lightSource.microscope, lightSource.microscopeObjective));
                 }
             }
 
             //String test  = (ConfigurationManager.AppSettings["PathData"] + "\\test.csv");
 
+        }
+
+        private void addHardwareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHardware formHardware = new();
+
+            if (formHardware.ShowDialog() == DialogResult.OK)
+            {
+                // push to dbo.catalogue
+                // db.create table
+            }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,7 +86,7 @@ namespace Capture
 
                 if(error == cSpectrometer.ErrorMessage.None)
                 {
-                    
+                    buttonCapture.Enabled = true;
                 }
                 else
                 {
@@ -87,6 +101,8 @@ namespace Capture
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
+            buttonCapture.Enabled = false;
+
             DialogResult result;
 
             result = MessageBox.Show("Please turn off the light source.", "Process information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -110,11 +126,17 @@ namespace Capture
             if (result == DialogResult.Yes)
             {
                 DateTime timestamp = DateTime.Now;
+                string filePath = ConfigurationManager.AppSettings.Get("PathData");
 
-                // Save csv
-                if (writeCSV(timestamp) == true)
+                // Save csv in DATA
+                if (writeCSV(timestamp, filePath) == true)
                 {
-                    // Save to db
+                    // Save csv in BACKUP
+                    filePath = ConfigurationManager.AppSettings.Get("PathBackup");
+                    if (writeCSV(timestamp, filePath) == true)
+                    {
+                        // Write to db
+                    }
                 }
                 else
                 {
@@ -127,11 +149,38 @@ namespace Capture
             }
         }
 
-        private bool writeCSV(DateTime ts)
+        private bool writeCSV(DateTime ts, string filePath)
         {
             bool flag = false;
-            // Write headers
-            // Write data
+
+            // Setup CSV
+            string spectrometerSerialNo = ConfigurationManager.AppSettings.Get("SpectrometerSerialNo");
+            string calibrationFile = ConfigurationManager.AppSettings.Get("PathCalFile");
+            string tSFormatted = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", ts);
+            string fileName = String.Format("{0}.csv", tSFormatted); // TODO : Update file name with light source and microscope
+            string path = filePath + "\\" + fileName;
+            var csvFile = new FileInfo(path);
+            StreamWriter sw = csvFile.CreateText();
+
+            // CSV headers
+            // TODO : Add light source and microcsope headers
+            sw.WriteLine(String.Format("Date of characterisation:,{0}", ts));
+            sw.WriteLine(String.Format("Spectrometer Serial Number:,{0}", spectrometerSerialNo));
+            sw.WriteLine(String.Format("Spectrometer Calibration File:,{0}", calibrationFile));
+            sw.WriteLine();
+            sw.WriteLine("Wavelengths,Absolute Spectral Irradiance (uW/cm^2/nm),Intensity Counts,Dark Scan,Calibration File");
+
+            for (int i = 0; i < spectrometer.absoluteSpectralIrradianceData.Length; i++)
+            {
+                // Write wavelength, absolute spectral irradiance, intensity count, dark scan and calibration data
+                string wavelength = String.Format("{0},", spectrometer.spectrometerWavelengths[i].ToString());
+                string asi = String.Format("{0},", spectrometer.absoluteSpectralIrradianceData[i].ToString()); // TODO : NaN
+                string intensityCount = String.Format("{0},", spectrometer.lightScanData[i].ToString());
+                string darkScan = String.Format("{0},", spectrometer.darkScanData[i].ToString());
+                string calibration = String.Format("{0}", spectrometer.spectrometerCalibrationData[i].ToString()); // TODO : NaN
+
+                sw.WriteLine(wavelength + asi + intensityCount + darkScan + calibration);
+            }
             flag = true;
 
             return flag;

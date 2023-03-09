@@ -12,5 +12,7 @@ namespace Capture
         public DateTime recordDate { get; set; }
         public String? lightSourceName { get; set; }
         public String? lightSourceManufacturer { get; set;}
+        public String? microscope { get; set; }
+        public String? microscopeObjective { get; set; }
     }
 }

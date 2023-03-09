@@ -33,15 +33,12 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLightSourceManufacturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLightSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addMicrscopeManufacturerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addMicroscopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHardwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonSetupSpectrometer = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.buttonCapture = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -74,37 +71,17 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addLightSourceManufacturerToolStripMenuItem,
-            this.addLightSourceToolStripMenuItem,
-            this.addMicrscopeManufacturerToolStripMenuItem,
-            this.addMicroscopeToolStripMenuItem});
+            this.addHardwareToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(70, 20);
             this.toolStripMenuItem1.Text = "Hardware";
             // 
-            // addLightSourceManufacturerToolStripMenuItem
+            // addHardwareToolStripMenuItem
             // 
-            this.addLightSourceManufacturerToolStripMenuItem.Name = "addLightSourceManufacturerToolStripMenuItem";
-            this.addLightSourceManufacturerToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.addLightSourceManufacturerToolStripMenuItem.Text = "Add Light Source Manufacturer";
-            // 
-            // addLightSourceToolStripMenuItem
-            // 
-            this.addLightSourceToolStripMenuItem.Name = "addLightSourceToolStripMenuItem";
-            this.addLightSourceToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.addLightSourceToolStripMenuItem.Text = "Add Light Source";
-            // 
-            // addMicrscopeManufacturerToolStripMenuItem
-            // 
-            this.addMicrscopeManufacturerToolStripMenuItem.Name = "addMicrscopeManufacturerToolStripMenuItem";
-            this.addMicrscopeManufacturerToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.addMicrscopeManufacturerToolStripMenuItem.Text = "Add Microscope Manufacturer";
-            // 
-            // addMicroscopeToolStripMenuItem
-            // 
-            this.addMicroscopeToolStripMenuItem.Name = "addMicroscopeToolStripMenuItem";
-            this.addMicroscopeToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
-            this.addMicroscopeToolStripMenuItem.Text = "Add Microscope";
+            this.addHardwareToolStripMenuItem.Name = "addHardwareToolStripMenuItem";
+            this.addHardwareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addHardwareToolStripMenuItem.Text = "Add Hardware";
+            this.addHardwareToolStripMenuItem.Click += new System.EventHandler(this.addHardwareToolStripMenuItem_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -155,17 +132,10 @@
             this.listBox1.TabIndex = 4;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 619);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
-            this.statusStrip1.TabIndex = 5;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // buttonCapture
             // 
             this.buttonCapture.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonCapture.Enabled = false;
             this.buttonCapture.Location = new System.Drawing.Point(183, 373);
             this.buttonCapture.Name = "buttonCapture";
             this.buttonCapture.Size = new System.Drawing.Size(417, 68);
@@ -173,6 +143,14 @@
             this.buttonCapture.Text = "Capture";
             this.buttonCapture.UseVisualStyleBackColor = true;
             this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 619);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // Form1
             // 
@@ -203,14 +181,11 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem addLightSourceToolStripMenuItem;
-        private ToolStripMenuItem addMicroscopeToolStripMenuItem;
-        private ToolStripMenuItem addMicrscopeManufacturerToolStripMenuItem;
         private TableLayoutPanel tableLayoutPanel2;
         private Button buttonSetupSpectrometer;
         private ListBox listBox1;
         private StatusStrip statusStrip1;
-        private ToolStripMenuItem addLightSourceManufacturerToolStripMenuItem;
+        private ToolStripMenuItem addHardwareToolStripMenuItem;
         private Button buttonCapture;
     }
 }

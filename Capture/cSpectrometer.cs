@@ -10,6 +10,8 @@ namespace Capture
 
         private mSpectrometerSettings SpectrometerSettings = new();
         private int DeviceID { get; set; }
+        public double[]? spectrometerWavelengths { get; private set; }
+        public double[]? spectrometerCalibrationData { get; private set; }
         public double[]? darkScanData { get; private set; }
         public double[]? lightScanData { get; private set; }
         public double[]? absoluteSpectralIrradianceData { get; private set; }
@@ -139,6 +141,9 @@ namespace Capture
 
                         if (calibrationFile.Parse(path) == cCalibrationFile.ErrorCode.NoError)
                         {
+                            spectrometerWavelengths = calibrationFile.Wavelength;
+                            spectrometerCalibrationData = calibrationFile.Energy;
+
                             state = IniProcessState.GetAllSpectrometers;
                             run = true;
                         }
@@ -202,6 +207,7 @@ namespace Capture
                         {
                             DeviceID = devices[i].Id;
                             state = IniProcessState.SetIntegrationTime;
+
                         }
                         else
                         {
@@ -329,6 +335,23 @@ namespace Capture
 
             return (error);
         }
+
+        /// <summary>
+        /// This function polls the spectrometer for its wavelengths to be utilised in the csv file.
+        /// </summary>
+        private ErrorMessage GetWavelengths()
+        {
+            ErrorMessage error;
+
+            int errorCode = (int)ErrorMessage.UndefinedError;
+
+            spectrometerWavelengths = ocean.getWavelengths(DeviceID, ref errorCode);
+
+            error = (ErrorMessage)errorCode;
+
+            return error;
+        }
+
 
         /// <summary>
         /// This function tests the connection with an initialises spectrometer by requesting the serial number from

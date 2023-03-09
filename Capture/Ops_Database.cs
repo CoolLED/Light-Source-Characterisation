@@ -101,5 +101,14 @@ namespace Capture
 
             return (records);
         }
+
+        public void writeCharacterisationData()
+        {
+            // uniqueID
+            // recordDate
+            // recordPath
+            // backupPath
+
+        }
     }
 }

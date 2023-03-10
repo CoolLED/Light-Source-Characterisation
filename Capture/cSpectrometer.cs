@@ -336,22 +336,6 @@ namespace Capture
             return (error);
         }
 
-        /// <summary>
-        /// This function polls the spectrometer for its wavelengths to be utilised in the csv file.
-        /// </summary>
-        private ErrorMessage GetWavelengths()
-        {
-            ErrorMessage error;
-
-            int errorCode = (int)ErrorMessage.UndefinedError;
-
-            spectrometerWavelengths = ocean.getWavelengths(DeviceID, ref errorCode);
-
-            error = (ErrorMessage)errorCode;
-
-            return error;
-        }
-
 
         /// <summary>
         /// This function tests the connection with an initialises spectrometer by requesting the serial number from
@@ -385,21 +369,21 @@ namespace Capture
         /// <returns>
         /// Error an error flag - 0 when calulation was successfull or 1 when an error has ocurred.
         /// </returns>
-        public ErrorMessage ProcessSpectrum (double collectionArea)
+        public ErrorMessage ProcessSpectrum (double collectionArea, int integrationTime)
         {
             ErrorMessage error = ErrorMessage.UndefinedError;
             List<double> asi = new();
 
             if ((lightScanData != null) && (darkScanData != null) && (calibrationFile.Energy != null))
             {
+                /*
+                 * TODO: This is a hack to provide the array 'absoluteSpectralIrradianceData' with a dimension.
+                 * There must be a better way like: malloc.
+                 */
+                absoluteSpectralIrradianceData = calibrationFile.Energy;
+
                 for (int i = 0; i < calibrationFile.Energy.Count(); i++)
                 {
-                    /*
-                     * TODO: This is a hack to provide the array 'absoluteSpectralIrradianceData' with a dimension.
-                     * There must be a better way like: malloc.
-                     */
-                    absoluteSpectralIrradianceData = calibrationFile.Energy;
-
                     /*
                      * Compute the energy.
                      * (light scan counts - dark scan counts) * joules per count
@@ -410,7 +394,7 @@ namespace Capture
                     /*
                      * Compute the power - Watts (Joules/Second)
                      */
-                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / SpectrometerSettings.IntegrationTime);
+                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / integrationTime);
 
                     /*
                      * Scaling for the collection area.

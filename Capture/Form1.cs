@@ -10,6 +10,8 @@ namespace Capture
         Ops_Database db = new();
         cSpectrometer spectrometer = new();
 
+        mSpectrometerSettings settings = new();
+
         public Form1()
         {
             InitializeComponent();
@@ -38,8 +40,7 @@ namespace Capture
                     if (mBoxReply == DialogResult.Yes)
                     {
                         db.creatTable(TableName);
-                        listBox1.Items.Add(string.Format("{0} {1} - {2} {3}", lightSource.lightSourceManufacturer, lightSource.lightSourceName,
-                            lightSource.microscope, lightSource.microscopeObjective));
+                        listBox1.Items.Add(TableName);
                     }
                     else
                     {
@@ -48,8 +49,7 @@ namespace Capture
                 }
                 else
                 {
-                    listBox1.Items.Add(string.Format("{0} {1} - {2} {3}", lightSource.lightSourceManufacturer, lightSource.lightSourceName,
-                        lightSource.microscope, lightSource.microscopeObjective));
+                    listBox1.Items.Add(TableName);
                 }
             }
 
@@ -60,11 +60,35 @@ namespace Capture
         private void addHardwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormHardware formHardware = new();
+            List<Model_Table_Name> tables = db.readTableNames();
 
             if (formHardware.ShowDialog() == DialogResult.OK)
             {
-                // push to dbo.catalogue
-                // db.create table
+                if (formHardware.checkTableExists(tables) == false)
+                {
+                    Model_Catalogue addHardware = formHardware.hardware;
+
+                    String TableName = addHardware.lightSourceManufacturer + "__" + addHardware.lightSourceName +
+                        "__" + addHardware.microscope + "__" + addHardware.microscopeObjective;
+                    TableName = TableName.Replace(' ', '_');
+
+                    var mBoxReply = MessageBox.Show("Do you want to create a database table: " + TableName, "Warning", MessageBoxButtons.YesNo);
+
+                    if (mBoxReply == DialogResult.Yes)
+                    {
+                        db.creatTable(TableName);
+                        db.addToCatalogue(addHardware);
+                        listBox1.Items.Add(TableName);
+                    }
+                    else
+                    {
+                        /* Take no action */
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hardware already exists.\n\nSelect from the list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -79,8 +103,7 @@ namespace Capture
 
             if (formSpectrometer.ShowDialog(this) == DialogResult.OK)
             {
-                mSpectrometerSettings settings = formSpectrometer.spectrometerSettings;
-
+                settings = formSpectrometer.spectrometerSettings;
 
                 var error = spectrometer.Initialise(ConfigurationManager.AppSettings["PathCalFile"], settings);
 
@@ -119,23 +142,27 @@ namespace Capture
             }
 
             double collectionArea = Convert.ToDouble(ConfigurationManager.AppSettings.Get("Collection Area"));
-            spectrometer.ProcessSpectrum(collectionArea);
+            spectrometer.ProcessSpectrum(collectionArea, settings.IntegrationTime);
 
             result = MessageBox.Show("Would you like to save the data?", "Query?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
                 DateTime timestamp = DateTime.Now;
-                string filePath = ConfigurationManager.AppSettings.Get("PathData");
+                string tableName = listBox1.Text;
+                string tSFormatted = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", timestamp);
+                string fileName = String.Format("{0}__{1}.csv", tableName, tSFormatted);
+                string filePath = ConfigurationManager.AppSettings.Get("PathData") + "\\" + fileName;
 
                 // Save csv in DATA
-                if (writeCSV(timestamp, filePath) == true)
+                if (writeCSV(timestamp, filePath, tableName) == true)
                 {
                     // Save csv in BACKUP
-                    filePath = ConfigurationManager.AppSettings.Get("PathBackup");
-                    if (writeCSV(timestamp, filePath) == true)
+                    string backupFilePath = ConfigurationManager.AppSettings.Get("PathBackup") + "\\" + tableName;
+                    if (writeCSV(timestamp, backupFilePath, tableName) == true)
                     {
                         // Write to db
+                        db.writeCharacterisationData(tableName, timestamp, filePath, backupFilePath);
                     }
                 }
                 else
@@ -149,22 +176,20 @@ namespace Capture
             }
         }
 
-        private bool writeCSV(DateTime ts, string filePath)
+        private bool writeCSV(DateTime ts, string filePath, string tableName)
         {
             bool flag = false;
 
             // Setup CSV
             string spectrometerSerialNo = ConfigurationManager.AppSettings.Get("SpectrometerSerialNo");
             string calibrationFile = ConfigurationManager.AppSettings.Get("PathCalFile");
-            string tSFormatted = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", ts);
-            string fileName = String.Format("{0}.csv", tSFormatted); // TODO : Update file name with light source and microscope
-            string path = filePath + "\\" + fileName;
-            var csvFile = new FileInfo(path);
+            var csvFile = new FileInfo(filePath);
             StreamWriter sw = csvFile.CreateText();
 
             // CSV headers
             // TODO : Add light source and microcsope headers
             sw.WriteLine(String.Format("Date of characterisation:,{0}", ts));
+            sw.WriteLine(String.Format("Hardware:,{0}", tableName));
             sw.WriteLine(String.Format("Spectrometer Serial Number:,{0}", spectrometerSerialNo));
             sw.WriteLine(String.Format("Spectrometer Calibration File:,{0}", calibrationFile));
             sw.WriteLine();
@@ -184,6 +209,12 @@ namespace Capture
             flag = true;
 
             return flag;
+        }
+
+
+        private void Parse()
+        {
+
         }
     }
 }

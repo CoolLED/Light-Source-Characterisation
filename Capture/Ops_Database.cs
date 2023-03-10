@@ -66,7 +66,10 @@ namespace Capture
 
         public void creatTable(String tableName)
         {
-            String sql = String.Format("CREATE TABLE [characterisation].[dbo].[{0}]([uniqueID] [int] IDENTITY(1,1) NOT NULL,[recordDate] [datetime] NOT NULL,[recordPath] [varchar](250) NOT NULL)", tableName);
+            String sql = String.Format("CREATE TABLE [characterisation].[dbo].[{0}]([uniqueID] [int] IDENTITY(1,1) NOT NULL," +
+                "[recordDate] [datetime] NOT NULL," +
+                "[recordPath] [varchar](250) NOT NULL," +
+                "[backupPath] [varchar](250) NOT NULL)", tableName);
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
             {
@@ -102,12 +105,57 @@ namespace Capture
             return (records);
         }
 
-        public void writeCharacterisationData()
+        public void addToCatalogue(Model_Catalogue hardware)
         {
-            // uniqueID
-            // recordDate
-            // recordPath
-            // backupPath
+            string sql = "INSERT INTO [dbo].[catalogue](" +
+                            "[lightSourceName]" +
+                            ",[lightSourceManufacturer]" +
+                            ",[microscope]" +
+                            ",[microscopeObjective]" +
+                            ")" +
+
+                         "VALUES(" +
+                            "@lightSourceName," +
+                            "@lightSourceManufacturer," +
+                            "@microscope," +
+                            "@microscopeObjective" +
+                            ");";
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                var affectedRows = connection.Execute(sql, new
+                {
+                    lightSourceName = hardware.lightSourceName,
+                    lightSourceManufacturer = hardware.lightSourceManufacturer,
+                    microscope = hardware.microscope,
+                    microscopeObjective = hardware.microscopeObjective
+                });
+            }
+        }
+
+        public void writeCharacterisationData(string tableName, DateTime timestamp, string filePath, string backupFilePath)
+        {
+            string sql = "INSERT INTO [dbo].[" + tableName + "](" +
+                "[recordDate]" +
+                ",[recordPath]" +
+                ",[backupPath]" +
+                ")" +
+
+             "VALUES(" +
+                "@recordDate," +
+                "@recordPath," +
+                "@backupPath" +
+                ");";
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                var affectedRows = connection.Execute(sql, new
+                {
+                    recordDate = timestamp,
+                    recordPath = filePath,
+                    backupPath = backupFilePath
+                });
+            }
 
         }
     }

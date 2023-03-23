@@ -388,13 +388,21 @@ namespace Capture
                      * Compute the energy.
                      * (light scan counts - dark scan counts) * joules per count
                      */
-
                     absoluteSpectralIrradianceData[i] = ((lightScanData[i] - darkScanData[i]) * calibrationFile.Energy[i]);
+
+                    /*
+                     * Compute the dLp
+                     */
+                    double dLp = 0.396;
+                    if (i < calibrationFile.Energy.Count()-1)
+                    {
+                        dLp = calibrationFile.Wavelength[i+1] - calibrationFile.Wavelength[i];
+                    }
 
                     /*
                      * Compute the power - Watts (Joules/Second)
                      */
-                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / integrationTime);
+                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / (integrationTime * dLp));
 
                     /*
                      * Scaling for the collection area.

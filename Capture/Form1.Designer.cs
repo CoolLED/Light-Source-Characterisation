@@ -36,8 +36,15 @@
             this.addHardwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonSetupSpectrometer = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.buttonCapture = new System.Windows.Forms.Button();
+            this.comboBoxMicroscopeManufacturer = new System.Windows.Forms.ComboBox();
+            this.comboBoxMicroscopeModel = new System.Windows.Forms.ComboBox();
+            this.comboBoxMicroscopeArm = new System.Windows.Forms.ComboBox();
+            this.comboBoxMicroscopeOptic = new System.Windows.Forms.ComboBox();
+            this.comboBoxLightsourceManufacturer = new System.Windows.Forms.ComboBox();
+            this.comboBoxLightsourceModel = new System.Windows.Forms.ComboBox();
+            this.comboBoxLightsourceWavelength = new System.Windows.Forms.ComboBox();
+            this.comboBoxAttachmentMethod = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -50,7 +57,7 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(683, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -79,7 +86,7 @@
             // addHardwareToolStripMenuItem
             // 
             this.addHardwareToolStripMenuItem.Name = "addHardwareToolStripMenuItem";
-            this.addHardwareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addHardwareToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.addHardwareToolStripMenuItem.Text = "Add Hardware";
             this.addHardwareToolStripMenuItem.Click += new System.EventHandler(this.addHardwareToolStripMenuItem_Click);
             // 
@@ -91,28 +98,39 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Controls.Add(this.buttonSetupSpectrometer, 2, 4);
-            this.tableLayoutPanel2.Controls.Add(this.listBox1, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.buttonCapture, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.buttonSetupSpectrometer, 2, 9);
+            this.tableLayoutPanel2.Controls.Add(this.buttonCapture, 2, 10);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxMicroscopeManufacturer, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxMicroscopeModel, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxMicroscopeArm, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxMicroscopeOptic, 2, 4);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxLightsourceManufacturer, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxLightsourceModel, 2, 6);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxLightsourceWavelength, 2, 7);
+            this.tableLayoutPanel2.Controls.Add(this.comboBoxAttachmentMethod, 2, 8);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 8;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(784, 592);
+            this.tableLayoutPanel2.RowCount = 12;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.49953F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.50328F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(683, 592);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // buttonSetupSpectrometer
             // 
             this.buttonSetupSpectrometer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSetupSpectrometer.Location = new System.Drawing.Point(183, 299);
+            this.buttonSetupSpectrometer.Location = new System.Drawing.Point(133, 410);
             this.buttonSetupSpectrometer.Name = "buttonSetupSpectrometer";
             this.buttonSetupSpectrometer.Size = new System.Drawing.Size(417, 68);
             this.buttonSetupSpectrometer.TabIndex = 5;
@@ -120,23 +138,11 @@
             this.buttonSetupSpectrometer.UseVisualStyleBackColor = true;
             this.buttonSetupSpectrometer.Click += new System.EventHandler(this.buttonSetupSpectrometer_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(183, 77);
-            this.listBox1.Name = "listBox1";
-            this.tableLayoutPanel2.SetRowSpan(this.listBox1, 3);
-            this.listBox1.Size = new System.Drawing.Size(417, 216);
-            this.listBox1.TabIndex = 4;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
             // buttonCapture
             // 
             this.buttonCapture.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonCapture.Enabled = false;
-            this.buttonCapture.Location = new System.Drawing.Point(183, 373);
+            this.buttonCapture.Location = new System.Drawing.Point(133, 484);
             this.buttonCapture.Name = "buttonCapture";
             this.buttonCapture.Size = new System.Drawing.Size(417, 68);
             this.buttonCapture.TabIndex = 6;
@@ -144,11 +150,91 @@
             this.buttonCapture.UseVisualStyleBackColor = true;
             this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
             // 
+            // comboBoxMicroscopeManufacturer
+            // 
+            this.comboBoxMicroscopeManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMicroscopeManufacturer.FormattingEnabled = true;
+            this.comboBoxMicroscopeManufacturer.Location = new System.Drawing.Point(133, 42);
+            this.comboBoxMicroscopeManufacturer.Name = "comboBoxMicroscopeManufacturer";
+            this.comboBoxMicroscopeManufacturer.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxMicroscopeManufacturer.TabIndex = 7;
+            this.comboBoxMicroscopeManufacturer.Text = "Select Microscope Manufacturer";
+            // 
+            // comboBoxMicroscopeModel
+            // 
+            this.comboBoxMicroscopeModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMicroscopeModel.FormattingEnabled = true;
+            this.comboBoxMicroscopeModel.Location = new System.Drawing.Point(133, 89);
+            this.comboBoxMicroscopeModel.Name = "comboBoxMicroscopeModel";
+            this.comboBoxMicroscopeModel.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxMicroscopeModel.TabIndex = 8;
+            this.comboBoxMicroscopeModel.Text = "Select Microscope Model";
+            // 
+            // comboBoxMicroscopeArm
+            // 
+            this.comboBoxMicroscopeArm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMicroscopeArm.FormattingEnabled = true;
+            this.comboBoxMicroscopeArm.Location = new System.Drawing.Point(133, 136);
+            this.comboBoxMicroscopeArm.Name = "comboBoxMicroscopeArm";
+            this.comboBoxMicroscopeArm.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxMicroscopeArm.TabIndex = 9;
+            this.comboBoxMicroscopeArm.Text = "Select Microscope Arm";
+            // 
+            // comboBoxMicroscopeOptic
+            // 
+            this.comboBoxMicroscopeOptic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxMicroscopeOptic.FormattingEnabled = true;
+            this.comboBoxMicroscopeOptic.Location = new System.Drawing.Point(133, 183);
+            this.comboBoxMicroscopeOptic.Name = "comboBoxMicroscopeOptic";
+            this.comboBoxMicroscopeOptic.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxMicroscopeOptic.TabIndex = 10;
+            this.comboBoxMicroscopeOptic.Text = "Select Microscope Optic";
+            // 
+            // comboBoxLightsourceManufacturer
+            // 
+            this.comboBoxLightsourceManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLightsourceManufacturer.FormattingEnabled = true;
+            this.comboBoxLightsourceManufacturer.Location = new System.Drawing.Point(133, 230);
+            this.comboBoxLightsourceManufacturer.Name = "comboBoxLightsourceManufacturer";
+            this.comboBoxLightsourceManufacturer.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxLightsourceManufacturer.TabIndex = 11;
+            this.comboBoxLightsourceManufacturer.Text = "Select Lightsource Manufacturer";
+            // 
+            // comboBoxLightsourceModel
+            // 
+            this.comboBoxLightsourceModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLightsourceModel.FormattingEnabled = true;
+            this.comboBoxLightsourceModel.Location = new System.Drawing.Point(133, 277);
+            this.comboBoxLightsourceModel.Name = "comboBoxLightsourceModel";
+            this.comboBoxLightsourceModel.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxLightsourceModel.TabIndex = 12;
+            this.comboBoxLightsourceModel.Text = "Select Lightsource Model";
+            // 
+            // comboBoxLightsourceWavelength
+            // 
+            this.comboBoxLightsourceWavelength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLightsourceWavelength.FormattingEnabled = true;
+            this.comboBoxLightsourceWavelength.Location = new System.Drawing.Point(133, 324);
+            this.comboBoxLightsourceWavelength.Name = "comboBoxLightsourceWavelength";
+            this.comboBoxLightsourceWavelength.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxLightsourceWavelength.TabIndex = 13;
+            this.comboBoxLightsourceWavelength.Text = "Select Lightsource Wavlength";
+            // 
+            // comboBoxAttachmentMethod
+            // 
+            this.comboBoxAttachmentMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxAttachmentMethod.FormattingEnabled = true;
+            this.comboBoxAttachmentMethod.Location = new System.Drawing.Point(133, 371);
+            this.comboBoxAttachmentMethod.Name = "comboBoxAttachmentMethod";
+            this.comboBoxAttachmentMethod.Size = new System.Drawing.Size(417, 23);
+            this.comboBoxAttachmentMethod.TabIndex = 14;
+            this.comboBoxAttachmentMethod.Text = "Select Attachment Method";
+            // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 619);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 621);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(683, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -156,7 +242,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 641);
+            this.ClientSize = new System.Drawing.Size(683, 643);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.menuStrip1);
@@ -183,9 +269,16 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private TableLayoutPanel tableLayoutPanel2;
         private Button buttonSetupSpectrometer;
-        private ListBox listBox1;
         private StatusStrip statusStrip1;
         private ToolStripMenuItem addHardwareToolStripMenuItem;
         private Button buttonCapture;
+        private ComboBox comboBoxMicroscopeManufacturer;
+        private ComboBox comboBoxMicroscopeModel;
+        private ComboBox comboBoxMicroscopeArm;
+        private ComboBox comboBoxMicroscopeOptic;
+        private ComboBox comboBoxLightsourceManufacturer;
+        private ComboBox comboBoxLightsourceModel;
+        private ComboBox comboBoxLightsourceWavelength;
+        private ComboBox comboBoxAttachmentMethod;
     }
 }

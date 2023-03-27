@@ -12,7 +12,8 @@ namespace Capture
 {
     public partial class FormHardware : Form
     {
-        public Model_Catalogue hardware = new Model_Catalogue();
+        public DB_Hardware hardware = new DB_Hardware();
+        public Model_Table_Name tableName = new Model_Table_Name();
 
         public FormHardware()
         {
@@ -22,41 +23,28 @@ namespace Capture
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             addHardware();
+            tableName.TABLE_NAME = (string)comboBoxHardwareTables.SelectedItem;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        public Model_Catalogue addHardware()
+        public void addHardware()
         {
-            hardware.lightSourceName = textBoxLightsourceName.Text.ToUpper();
-            hardware.lightSourceManufacturer = textBoxLightsourceManufacturer.Text.ToUpper();
-            hardware.microscope = textBoxMicroscope.Text.ToUpper();
-            hardware.microscopeObjective = textBoxMicroscopeObjective.Text.ToUpper();
-
-            return hardware;
+            hardware.name = textBoxHardwareName.Text;
         }
 
-        public bool checkTableExists(List<Model_Table_Name> tables)
+        public void addTables(List<Model_Table_Name> tables)
         {
-            bool exists = false;
-
-            String TableName = hardware.lightSourceManufacturer + "__" + hardware.lightSourceName +
-                   "__" + hardware.microscope + "__" + hardware.microscopeObjective;
-            TableName = TableName.Replace(' ', '_');
-
-            var searchResult = tables.Find(tables => tables.TABLE_NAME == TableName);
-
-            if (searchResult == null)
+            foreach (Model_Table_Name table in tables)
             {
-                exists = false;
-            }
-            else
-            {
-                exists = true;
+                if (table.TABLE_NAME != "catalogue")
+                {
+                    comboBoxHardwareTables.Items.Add(table.TABLE_NAME);
+                }
             }
 
-            return exists;
+            return;
         }
     }
 }

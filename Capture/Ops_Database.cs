@@ -91,44 +91,35 @@ namespace Capture
             return tables;
         }
 
-        public List<Model_Catalogue> readCatalogue()
+        public List<DB_Hardware> readHardwareTable(string tableName)
         {
-            List<Model_Catalogue> records = new();
+            List<DB_Hardware> records = new();
 
-            string sql = String.Format("SELECT * FROM [characterisation].[dbo].[catalogue] ORDER BY [lightSourceManufacturer] ASC, [lightSourceName] ASC");
+            string sql = String.Format("SELECT * FROM [characterisation].[dbo].[" + tableName + "]");
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
             {
-                records = (List<Model_Catalogue>)connection.Query<Model_Catalogue>(sql);
+                records = (List<DB_Hardware>)connection.Query<DB_Hardware>(sql);
             }
 
             return (records);
         }
 
-        public void addToCatalogue(Model_Catalogue hardware)
+        public void addToCatalogue(Model_Table_Name tableName, DB_Hardware hardware)
         {
-            string sql = "INSERT INTO [dbo].[catalogue](" +
-                            "[lightSourceName]" +
-                            ",[lightSourceManufacturer]" +
-                            ",[microscope]" +
-                            ",[microscopeObjective]" +
+            string sql = "INSERT INTO [dbo].[" + tableName.TABLE_NAME + "](" +
+                            "[name]" +
                             ")" +
 
                          "VALUES(" +
-                            "@lightSourceName," +
-                            "@lightSourceManufacturer," +
-                            "@microscope," +
-                            "@microscopeObjective" +
+                            "@name" +
                             ");";
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
             {
                 var affectedRows = connection.Execute(sql, new
                 {
-                    lightSourceName = hardware.lightSourceName,
-                    lightSourceManufacturer = hardware.lightSourceManufacturer,
-                    microscope = hardware.microscope,
-                    microscopeObjective = hardware.microscopeObjective
+                    name = hardware.name
                 });
             }
         }
@@ -136,15 +127,15 @@ namespace Capture
         public void writeCharacterisationData(string tableName, DateTime timestamp, string filePath, string backupFilePath)
         {
             string sql = "INSERT INTO [dbo].[" + tableName + "](" +
-                "[recordDate]" +
-                ",[recordPath]" +
-                ",[backupPath]" +
+                "[created_at]" +
+                ",[data_Path]" +
+                ",[backup_Data_Path]" +
                 ")" +
 
              "VALUES(" +
-                "@recordDate," +
-                "@recordPath," +
-                "@backupPath" +
+                "@created_at," +
+                "@data_Path," +
+                "@backup_Data_Path" +
                 ");";
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))

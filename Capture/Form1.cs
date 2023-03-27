@@ -19,42 +19,61 @@ namespace Capture
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            List<Model_Catalogue> lightSources = db.readCatalogue();
-            List<Model_Table_Name> tables = db.readTableNames();
+            loadComboBoxes();
+        }
 
-            listBox1.Items.Clear();
-            buttonSetupSpectrometer.Enabled = false;
+        private void loadComboBoxes()
+        {
+            comboBoxMicroscopeManufacturer.Items.Clear();
+            comboBoxMicroscopeModel.Items.Clear();
+            comboBoxMicroscopeArm.Items.Clear();
+            comboBoxMicroscopeOptic.Items.Clear();
+            comboBoxLightsourceManufacturer.Items.Clear();
+            comboBoxLightsourceModel.Items.Clear();
+            comboBoxAttachmentMethod.Items.Clear();
+            comboBoxLightsourceWavelength.Items.Clear();
 
-            foreach (Model_Catalogue lightSource in lightSources)
+            List<DB_Hardware> microscopeManufacturer = db.readHardwareTable("microscope_Manufacturer");
+            List<DB_Hardware> microscopeModel = db.readHardwareTable("microscope_Model");
+            List<DB_Hardware> microscopeArm = db.readHardwareTable("microscope_Arm");
+            List<DB_Hardware> microscopeOptic = db.readHardwareTable("microscope_Optic");
+            List<DB_Hardware> lightsourceManufacturer = db.readHardwareTable("lightsource_Manufacturer");
+            List<DB_Hardware> lightsourceModel = db.readHardwareTable("lightsource_Model");
+            List<DB_Hardware> lightsourceWavelength = db.readHardwareTable("lightsource_Wavelength");
+            List<DB_Hardware> attachmentMethod = db.readHardwareTable("attachment_Method");
+
+            foreach (DB_Hardware manufacturer in microscopeManufacturer)
             {
-                String TableName = lightSource.lightSourceManufacturer.ToUpper() + "__" + lightSource.lightSourceName.ToUpper() +
-                    "__" + lightSource.microscope.ToUpper() + "__" + lightSource.microscopeObjective.ToUpper();
-                TableName = TableName.Replace(' ', '_');
-
-                var searchResult = tables.Find(tables => tables.TABLE_NAME == TableName);
-
-                if (searchResult == null)
-                {
-                    var mBoxReply = MessageBox.Show("Do you want to create a database table: " + TableName, "Warning", MessageBoxButtons.YesNo);
-
-                    if (mBoxReply == DialogResult.Yes)
-                    {
-                        db.creatTable(TableName);
-                        listBox1.Items.Add(TableName);
-                    }
-                    else
-                    {
-                        /* Take no action */
-                    }
-                }
-                else
-                {
-                    listBox1.Items.Add(TableName);
-                }
+                comboBoxMicroscopeManufacturer.Items.Add(manufacturer.name);
             }
-
-            //String test  = (ConfigurationManager.AppSettings["PathData"] + "\\test.csv");
-
+            foreach (DB_Hardware model in microscopeModel)
+            {
+                comboBoxMicroscopeModel.Items.Add(model.name);
+            }
+            foreach (DB_Hardware arm in microscopeArm)
+            {
+                comboBoxMicroscopeArm.Items.Add(arm.name);
+            }
+            foreach (DB_Hardware optic in microscopeOptic)
+            {
+                comboBoxMicroscopeOptic.Items.Add(optic.name);
+            }
+            foreach (DB_Hardware manufacturer in lightsourceManufacturer)
+            {
+                comboBoxLightsourceManufacturer.Items.Add(manufacturer.name);
+            }
+            foreach (DB_Hardware model in lightsourceModel)
+            {
+                comboBoxLightsourceModel.Items.Add(model.name);
+            }
+            foreach (DB_Hardware wavelength in lightsourceWavelength)
+            {
+                comboBoxLightsourceWavelength.Items.Add(wavelength.name);
+            }
+            foreach (DB_Hardware method in attachmentMethod)
+            {
+                comboBoxAttachmentMethod.Items.Add(method.name);
+            }
         }
 
         private void addHardwareToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,39 +81,19 @@ namespace Capture
             FormHardware formHardware = new();
             List<Model_Table_Name> tables = db.readTableNames();
 
+            formHardware.addTables(tables);
+
             if (formHardware.ShowDialog() == DialogResult.OK)
             {
-                if (formHardware.checkTableExists(tables) == false)
-                {
-                    Model_Catalogue addHardware = formHardware.hardware;
+                DB_Hardware addHardware = formHardware.hardware;
+                Model_Table_Name tableName = formHardware.tableName;
+                db.addToCatalogue(tableName, addHardware);
 
-                    String TableName = addHardware.lightSourceManufacturer + "__" + addHardware.lightSourceName +
-                        "__" + addHardware.microscope + "__" + addHardware.microscopeObjective;
-                    TableName = TableName.Replace(' ', '_');
+                loadComboBoxes();
 
-                    var mBoxReply = MessageBox.Show("Do you want to create a database table: " + TableName, "Warning", MessageBoxButtons.YesNo);
-
-                    if (mBoxReply == DialogResult.Yes)
-                    {
-                        db.creatTable(TableName);
-                        db.addToCatalogue(addHardware);
-                        listBox1.Items.Add(TableName);
-                    }
-                    else
-                    {
-                        /* Take no action */
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Hardware already exists.\n\nSelect from the list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Hardware successfully added to the database.", "Information",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            buttonSetupSpectrometer.Enabled = (listBox1.SelectedIndex > -1) ? true : false;
         }
 
         private void buttonSetupSpectrometer_Click(object sender, EventArgs e)
@@ -149,9 +148,13 @@ namespace Capture
             if (result == DialogResult.Yes)
             {
                 DateTime timestamp = DateTime.Now;
-                string tableName = listBox1.Text;
+                string tableName = "catalogue";
                 string tSFormatted = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", timestamp);
-                string fileName = String.Format("{0}__{1}.csv", tableName, tSFormatted);
+                string fileName = String.Format("{0}__{1}__{2}__{3}__{4}__{5}__{6}__{7}__{8}.csv", 
+                    comboBoxMicroscopeManufacturer.SelectedItem, comboBoxMicroscopeModel.SelectedItem,
+                    comboBoxMicroscopeArm.SelectedItem, comboBoxMicroscopeOptic.SelectedItem,
+                    comboBoxLightsourceManufacturer.SelectedItem, comboBoxLightsourceModel.SelectedItem,
+                    comboBoxLightsourceWavelength.SelectedItem, comboBoxAttachmentMethod.SelectedItem, tSFormatted);
                 string filePath = ConfigurationManager.AppSettings.Get("PathData") + "\\" + fileName;
 
                 // Save csv in DATA

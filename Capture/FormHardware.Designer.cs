@@ -32,17 +32,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.labelLightsourceName = new System.Windows.Forms.Label();
-            this.labelLightsourceManufacturer = new System.Windows.Forms.Label();
-            this.labelMicroscope = new System.Windows.Forms.Label();
-            this.labelMicroscopeObjective = new System.Windows.Forms.Label();
-            this.textBoxLightsourceName = new System.Windows.Forms.TextBox();
-            this.textBoxLightsourceManufacturer = new System.Windows.Forms.TextBox();
-            this.textBoxMicroscope = new System.Windows.Forms.TextBox();
-            this.textBoxMicroscopeObjective = new System.Windows.Forms.TextBox();
-            this.labelLightsourceNameEG = new System.Windows.Forms.Label();
-            this.labelLightsourceManufacturerEG = new System.Windows.Forms.Label();
-            this.labelMicroscopeEG = new System.Windows.Forms.Label();
-            this.labelMicroscopeObjectiveEG = new System.Windows.Forms.Label();
+            this.textBoxHardwareName = new System.Windows.Forms.TextBox();
+            this.comboBoxHardwareTables = new System.Windows.Forms.ComboBox();
+            this.labelHardwareValue = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,47 +46,39 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.66533F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.66533F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.002F));
-            this.tableLayoutPanel1.Controls.Add(this.buttonAdd, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.buttonAdd, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.labelLightsourceName, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelLightsourceManufacturer, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelMicroscope, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.labelMicroscopeObjective, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxLightsourceName, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxLightsourceManufacturer, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxMicroscope, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxMicroscopeObjective, 2, 7);
-            this.tableLayoutPanel1.Controls.Add(this.labelLightsourceNameEG, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelLightsourceManufacturerEG, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelMicroscopeEG, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.labelMicroscopeObjectiveEG, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxHardwareName, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.comboBoxHardwareTables, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelHardwareValue, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.874016F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.349082F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.692307F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(613, 483);
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(613, 275);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // buttonAdd
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.buttonAdd, 3);
             this.buttonAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonAdd.Location = new System.Drawing.Point(64, 372);
+            this.buttonAdd.Location = new System.Drawing.Point(64, 173);
             this.buttonAdd.Name = "buttonAdd";
             this.tableLayoutPanel1.SetRowSpan(this.buttonAdd, 2);
-            this.buttonAdd.Size = new System.Drawing.Size(483, 68);
+            this.buttonAdd.Size = new System.Drawing.Size(483, 62);
             this.buttonAdd.TabIndex = 0;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -105,136 +89,50 @@
             this.labelLightsourceName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelLightsourceName.AutoSize = true;
             this.labelLightsourceName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelLightsourceName.Location = new System.Drawing.Point(64, 48);
+            this.labelLightsourceName.Location = new System.Drawing.Point(64, 43);
             this.labelLightsourceName.Name = "labelLightsourceName";
             this.labelLightsourceName.Size = new System.Drawing.Size(157, 15);
             this.labelLightsourceName.TabIndex = 1;
-            this.labelLightsourceName.Text = "Lightsource Name:";
+            this.labelLightsourceName.Text = "Add Hardware to:";
             this.labelLightsourceName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelLightsourceManufacturer
+            // textBoxHardwareName
             // 
-            this.labelLightsourceManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelLightsourceManufacturer.AutoSize = true;
-            this.labelLightsourceManufacturer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelLightsourceManufacturer.Location = new System.Drawing.Point(64, 122);
-            this.labelLightsourceManufacturer.Name = "labelLightsourceManufacturer";
-            this.labelLightsourceManufacturer.Size = new System.Drawing.Size(157, 15);
-            this.labelLightsourceManufacturer.TabIndex = 2;
-            this.labelLightsourceManufacturer.Text = "Lightsource Manufacturer:";
+            this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.textBoxHardwareName, 2);
+            this.textBoxHardwareName.Location = new System.Drawing.Point(227, 107);
+            this.textBoxHardwareName.Name = "textBoxHardwareName";
+            this.textBoxHardwareName.Size = new System.Drawing.Size(320, 23);
+            this.textBoxHardwareName.TabIndex = 5;
+            this.textBoxHardwareName.Text = "Add Hardware Value";
             // 
-            // labelMicroscope
+            // comboBoxHardwareTables
             // 
-            this.labelMicroscope.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMicroscope.AutoSize = true;
-            this.labelMicroscope.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelMicroscope.Location = new System.Drawing.Point(64, 196);
-            this.labelMicroscope.Name = "labelMicroscope";
-            this.labelMicroscope.Size = new System.Drawing.Size(157, 15);
-            this.labelMicroscope.TabIndex = 3;
-            this.labelMicroscope.Text = "Microscope:";
-            this.labelMicroscope.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.comboBoxHardwareTables.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.comboBoxHardwareTables, 2);
+            this.comboBoxHardwareTables.FormattingEnabled = true;
+            this.comboBoxHardwareTables.Location = new System.Drawing.Point(227, 39);
+            this.comboBoxHardwareTables.Name = "comboBoxHardwareTables";
+            this.comboBoxHardwareTables.Size = new System.Drawing.Size(320, 23);
+            this.comboBoxHardwareTables.TabIndex = 6;
+            this.comboBoxHardwareTables.Text = "Select Hardware Table";
             // 
-            // labelMicroscopeObjective
+            // labelHardwareValue
             // 
-            this.labelMicroscopeObjective.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMicroscopeObjective.AutoSize = true;
-            this.labelMicroscopeObjective.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelMicroscopeObjective.Location = new System.Drawing.Point(64, 270);
-            this.labelMicroscopeObjective.Name = "labelMicroscopeObjective";
-            this.labelMicroscopeObjective.Size = new System.Drawing.Size(157, 15);
-            this.labelMicroscopeObjective.TabIndex = 4;
-            this.labelMicroscopeObjective.Text = "Microscope Objective:";
-            // 
-            // textBoxLightsourceName
-            // 
-            this.textBoxLightsourceName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxLightsourceName, 2);
-            this.textBoxLightsourceName.Location = new System.Drawing.Point(227, 44);
-            this.textBoxLightsourceName.Name = "textBoxLightsourceName";
-            this.textBoxLightsourceName.Size = new System.Drawing.Size(320, 23);
-            this.textBoxLightsourceName.TabIndex = 5;
-            // 
-            // textBoxLightsourceManufacturer
-            // 
-            this.textBoxLightsourceManufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxLightsourceManufacturer, 2);
-            this.textBoxLightsourceManufacturer.Location = new System.Drawing.Point(227, 118);
-            this.textBoxLightsourceManufacturer.Name = "textBoxLightsourceManufacturer";
-            this.textBoxLightsourceManufacturer.Size = new System.Drawing.Size(320, 23);
-            this.textBoxLightsourceManufacturer.TabIndex = 6;
-            // 
-            // textBoxMicroscope
-            // 
-            this.textBoxMicroscope.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxMicroscope, 2);
-            this.textBoxMicroscope.Location = new System.Drawing.Point(227, 192);
-            this.textBoxMicroscope.Name = "textBoxMicroscope";
-            this.textBoxMicroscope.Size = new System.Drawing.Size(320, 23);
-            this.textBoxMicroscope.TabIndex = 7;
-            // 
-            // textBoxMicroscopeObjective
-            // 
-            this.textBoxMicroscopeObjective.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxMicroscopeObjective, 2);
-            this.textBoxMicroscopeObjective.Location = new System.Drawing.Point(227, 266);
-            this.textBoxMicroscopeObjective.Name = "textBoxMicroscopeObjective";
-            this.textBoxMicroscopeObjective.Size = new System.Drawing.Size(320, 23);
-            this.textBoxMicroscopeObjective.TabIndex = 8;
-            // 
-            // labelLightsourceNameEG
-            // 
-            this.labelLightsourceNameEG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelLightsourceNameEG.AutoSize = true;
-            this.labelLightsourceNameEG.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelLightsourceNameEG.Location = new System.Drawing.Point(227, 74);
-            this.labelLightsourceNameEG.Name = "labelLightsourceNameEG";
-            this.labelLightsourceNameEG.Size = new System.Drawing.Size(157, 15);
-            this.labelLightsourceNameEG.TabIndex = 9;
-            this.labelLightsourceNameEG.Text = "eg. pE-300 DF (MB) 400nm";
-            // 
-            // labelLightsourceManufacturerEG
-            // 
-            this.labelLightsourceManufacturerEG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelLightsourceManufacturerEG.AutoSize = true;
-            this.labelLightsourceManufacturerEG.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelLightsourceManufacturerEG.Location = new System.Drawing.Point(227, 148);
-            this.labelLightsourceManufacturerEG.Name = "labelLightsourceManufacturerEG";
-            this.labelLightsourceManufacturerEG.Size = new System.Drawing.Size(157, 15);
-            this.labelLightsourceManufacturerEG.TabIndex = 10;
-            this.labelLightsourceManufacturerEG.Text = "eg. CoolLED";
-            // 
-            // labelMicroscopeEG
-            // 
-            this.labelMicroscopeEG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMicroscopeEG.AutoSize = true;
-            this.labelMicroscopeEG.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelMicroscopeEG.Location = new System.Drawing.Point(227, 222);
-            this.labelMicroscopeEG.Name = "labelMicroscopeEG";
-            this.labelMicroscopeEG.Size = new System.Drawing.Size(157, 15);
-            this.labelMicroscopeEG.TabIndex = 11;
-            this.labelMicroscopeEG.Text = "eg. IX73";
-            // 
-            // labelMicroscopeObjectiveEG
-            // 
-            this.labelMicroscopeObjectiveEG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelMicroscopeObjectiveEG.AutoSize = true;
-            this.labelMicroscopeObjectiveEG.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.labelMicroscopeObjectiveEG.Location = new System.Drawing.Point(227, 295);
-            this.labelMicroscopeObjectiveEG.Name = "labelMicroscopeObjectiveEG";
-            this.labelMicroscopeObjectiveEG.Size = new System.Drawing.Size(157, 15);
-            this.labelMicroscopeObjectiveEG.TabIndex = 12;
-            this.labelMicroscopeObjectiveEG.Text = "eg. 40x";
+            this.labelHardwareValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelHardwareValue.AutoSize = true;
+            this.labelHardwareValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelHardwareValue.Location = new System.Drawing.Point(64, 111);
+            this.labelHardwareValue.Name = "labelHardwareValue";
+            this.labelHardwareValue.Size = new System.Drawing.Size(157, 15);
+            this.labelHardwareValue.TabIndex = 7;
+            this.labelHardwareValue.Text = "Value:";
             // 
             // FormHardware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(613, 483);
+            this.ClientSize = new System.Drawing.Size(613, 275);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormHardware";
@@ -251,16 +149,8 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Button buttonAdd;
         private Label labelLightsourceName;
-        private Label labelLightsourceManufacturer;
-        private Label labelMicroscope;
-        private Label labelMicroscopeObjective;
-        private TextBox textBoxLightsourceName;
-        private TextBox textBoxLightsourceManufacturer;
-        private TextBox textBoxMicroscope;
-        private TextBox textBoxMicroscopeObjective;
-        private Label labelLightsourceNameEG;
-        private Label labelLightsourceManufacturerEG;
-        private Label labelMicroscopeEG;
-        private Label labelMicroscopeObjectiveEG;
+        private TextBox textBoxHardwareName;
+        private ComboBox comboBoxHardwareTables;
+        private Label labelHardwareValue;
     }
 }

@@ -379,6 +379,9 @@ namespace Capture
                 /*
                  * TODO: This is a hack to provide the array 'absoluteSpectralIrradianceData' with a dimension.
                  * There must be a better way like: malloc.
+                 * 
+                 * IS THIS WHY THE ASI AND CAL FILE MATCHING UP IN CSV?!
+                 *
                  */
                 absoluteSpectralIrradianceData = calibrationFile.Energy;
 

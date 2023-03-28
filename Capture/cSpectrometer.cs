@@ -372,7 +372,6 @@ namespace Capture
         public ErrorMessage ProcessSpectrum (double collectionArea, int integrationTime)
         {
             ErrorMessage error = ErrorMessage.UndefinedError;
-            List<double> asi = new();
 
             if ((lightScanData != null) && (darkScanData != null) && (calibrationFile.Energy != null))
             {
@@ -383,7 +382,7 @@ namespace Capture
                  * IS THIS WHY THE ASI AND CAL FILE MATCHING UP IN CSV?!
                  *
                  */
-                absoluteSpectralIrradianceData = calibrationFile.Energy;
+                double[] asi = new double[calibrationFile.Energy.Length];
 
                 for (int i = 0; i < calibrationFile.Energy.Count(); i++)
                 {
@@ -391,7 +390,7 @@ namespace Capture
                      * Compute the energy.
                      * (light scan counts - dark scan counts) * joules per count
                      */
-                    absoluteSpectralIrradianceData[i] = ((lightScanData[i] - darkScanData[i]) * calibrationFile.Energy[i]);
+                    asi[i] = ((lightScanData[i] - darkScanData[i]) * calibrationFile.Energy[i]);
 
                     /*
                      * Compute the dLp
@@ -405,13 +404,15 @@ namespace Capture
                     /*
                      * Compute the power - Watts (Joules/Second)
                      */
-                    absoluteSpectralIrradianceData[i] = ((absoluteSpectralIrradianceData[i] * 1000000) / (integrationTime * dLp));
+                    asi[i] = ((asi[i] * 1000000) / (integrationTime * dLp));
 
                     /*
                      * Scaling for the collection area.
                      */
-                    absoluteSpectralIrradianceData[i] = absoluteSpectralIrradianceData[i] / collectionArea;
+                    asi[i] = asi[i] / collectionArea;
                 }
+            
+                absoluteSpectralIrradianceData = asi;
             }
             else
             {

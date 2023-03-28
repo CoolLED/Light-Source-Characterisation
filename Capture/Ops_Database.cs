@@ -5,6 +5,23 @@ namespace Capture
 {
     internal class Ops_Database
     {
+        public int readRecordID(string tableName, string selectedItemName)
+        {
+            int uniqueID;
+            List<DB_Hardware> records = new();
+
+            string sql = String.Format("SELECT * FROM [characterisation].[dbo].[" + tableName + "] WHERE name = '" + selectedItemName + "'");
+
+            using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
+            {
+                records = (List<DB_Hardware>)connection.Query<DB_Hardware>(sql);
+            }
+
+            uniqueID = records[0].unique_id;
+
+            return uniqueID;
+        }
+
         public List<Model_Generic_Record> readMicroscopeManufacturer()
         {
             List<Model_Generic_Record> manufacturers = new();
@@ -124,27 +141,53 @@ namespace Capture
             }
         }
 
-        public void writeCharacterisationData(string tableName, DateTime timestamp, string filePath, string backupFilePath)
+        public void writeCharacterisationData(DateTime timestamp, string filePath, string backupFilePath, int microscopeManufacturerID,
+            int microscopeModelID, int microscopeArmID, int microscopeOpticID, int lightsourceManufacturerID, int lightsourceModelID,
+            int lightsourceWavelengthID, int attachmentMethodID)
         {
-            string sql = "INSERT INTO [dbo].[" + tableName + "](" +
-                "[created_at]" +
+            string sql = "INSERT INTO [dbo].[catalogue](" +
+                "[record_date]" +
                 ",[data_Path]" +
                 ",[backup_Data_Path]" +
+                ",[microscope_Manufacturer]" +
+                ",[microscope_Model]" +
+                ",[microscope_Arm]" +
+                ",[microscope_Optic]" +
+                ",[lightsource_Manufacturer]" +
+                ",[lightsource_Model]" +
+                ",[lightsource_Wavelength]" +
+                ",[attachment_Method]" +
                 ")" +
 
              "VALUES(" +
-                "@created_at," +
+                "@record_date," +
                 "@data_Path," +
-                "@backup_Data_Path" +
+                "@backup_Data_Path," +
+                "@microscope_Manufacturer," +
+                "@microscope_Model," +
+                "@microscope_Arm," +
+                "@microscope_Optic," +
+                "@lightsource_Manufacturer," +
+                "@lightsource_Model," +
+                "@lightsource_Wavelength," +
+                "@attachment_Method" +
                 ");";
 
             using (IDbConnection connection = new Microsoft.Data.SqlClient.SqlConnection(Ops_DB_Connect.CnnVal("characterisation")))
             {
                 var affectedRows = connection.Execute(sql, new
                 {
-                    recordDate = timestamp,
-                    recordPath = filePath,
-                    backupPath = backupFilePath
+                    record_date = timestamp,
+                    data_Path = filePath,
+                    backup_Data_Path = backupFilePath,
+                    microscope_Manufacturer = microscopeManufacturerID,
+                    microscope_Model = microscopeModelID,
+                    microscope_Arm = microscopeArmID,
+                    microscope_Optic = microscopeOpticID,
+                    lightsource_Manufacturer = lightsourceManufacturerID,
+                    lightsource_Model = lightsourceModelID,
+                    lightsource_Wavelength = lightsourceWavelengthID,
+                    attachment_Method = attachmentMethodID
                 });
             }
 

@@ -123,6 +123,15 @@ namespace Capture
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
+            int microscopeManufacturerID = db.readRecordID("microscope_Manufacturer", comboBoxMicroscopeManufacturer.SelectedItem.ToString());
+            int microscopeModelID = db.readRecordID("microscope_Model", comboBoxMicroscopeModel.SelectedItem.ToString());
+            int microscopeArmID = db.readRecordID("microscope_Arm", comboBoxMicroscopeArm.SelectedItem.ToString());
+            int microscopeOpticID = db.readRecordID("microscope_Optic", comboBoxMicroscopeOptic.SelectedItem.ToString());
+            int lightsourceManufacturerID = db.readRecordID("lightsource_Manufacturer", comboBoxLightsourceManufacturer.SelectedItem.ToString());
+            int lightsourceModelID = db.readRecordID("lightsource_Model", comboBoxLightsourceModel.SelectedItem.ToString());
+            int lightsourceWavelengthID = db.readRecordID("lightsource_Wavelength", comboBoxLightsourceWavelength.SelectedItem.ToString());
+            int attachmentMethodID = db.readRecordID("attachment_Method", comboBoxAttachmentMethod.SelectedItem.ToString());
+
             buttonCapture.Enabled = false;
 
             DialogResult result;
@@ -150,11 +159,11 @@ namespace Capture
                 DateTime timestamp = DateTime.Now;
                 string tableName = "catalogue";
                 string tSFormatted = String.Format("{0:yyyy-MM-dd_HH-mm-ss}", timestamp);
-                string fileName = String.Format("{0}__{1}__{2}__{3}__{4}__{5}__{6}__{7}__{8}.csv", 
-                    comboBoxMicroscopeManufacturer.SelectedItem, comboBoxMicroscopeModel.SelectedItem,
-                    comboBoxMicroscopeArm.SelectedItem, comboBoxMicroscopeOptic.SelectedItem,
+                string fileName = String.Format("{0}__{1}__{2}__{3}__{4}__{5}__{6}__{7}__{8}.csv",
                     comboBoxLightsourceManufacturer.SelectedItem, comboBoxLightsourceModel.SelectedItem,
-                    comboBoxLightsourceWavelength.SelectedItem, comboBoxAttachmentMethod.SelectedItem, tSFormatted);
+                    comboBoxLightsourceWavelength.SelectedItem, comboBoxMicroscopeManufacturer.SelectedItem, 
+                    comboBoxMicroscopeModel.SelectedItem, comboBoxMicroscopeArm.SelectedItem, 
+                    comboBoxMicroscopeOptic.SelectedItem, comboBoxAttachmentMethod.SelectedItem, tSFormatted);
                 string filePath = ConfigurationManager.AppSettings.Get("PathData") + "\\" + fileName;
 
                 // Save csv in DATA
@@ -165,7 +174,8 @@ namespace Capture
                     if (writeCSV(timestamp, backupFilePath, tableName) == true)
                     {
                         // Write to db
-                        db.writeCharacterisationData(tableName, timestamp, filePath, backupFilePath);
+                        db.writeCharacterisationData(timestamp, filePath, backupFilePath, microscopeManufacturerID, microscopeModelID, microscopeArmID,
+                            microscopeOpticID, lightsourceManufacturerID, lightsourceModelID, lightsourceWavelengthID, attachmentMethodID);
                     }
                 }
                 else
@@ -202,10 +212,10 @@ namespace Capture
             {
                 // Write wavelength, absolute spectral irradiance, intensity count, dark scan and calibration data
                 string wavelength = String.Format("{0},", spectrometer.spectrometerWavelengths[i].ToString());
-                string asi = String.Format("{0},", spectrometer.absoluteSpectralIrradianceData[i].ToString()); // TODO : NaN
+                string asi = String.Format("{0},", spectrometer.absoluteSpectralIrradianceData[i].ToString());
                 string intensityCount = String.Format("{0},", spectrometer.lightScanData[i].ToString());
                 string darkScan = String.Format("{0},", spectrometer.darkScanData[i].ToString());
-                string calibration = String.Format("{0}", spectrometer.spectrometerCalibrationData[i].ToString()); // TODO : NaN
+                string calibration = String.Format("{0}", spectrometer.spectrometerCalibrationData[i].ToString());
 
                 sw.WriteLine(wavelength + asi + intensityCount + darkScan + calibration);
             }

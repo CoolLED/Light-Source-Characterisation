@@ -15,7 +15,7 @@ namespace Capture
         {
             checkBoxStrobeEn.Checked = false;
 
-            maskedTextBox1.Text = "100";
+            maskedTextBox1.Text = "1000";
 
             comboBoxIntTime.SelectedIndex = 0;
 

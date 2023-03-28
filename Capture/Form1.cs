@@ -170,7 +170,7 @@ namespace Capture
                 if (writeCSV(timestamp, filePath, tableName) == true)
                 {
                     // Save csv in BACKUP
-                    string backupFilePath = ConfigurationManager.AppSettings.Get("PathBackup") + "\\" + tableName;
+                    string backupFilePath = ConfigurationManager.AppSettings.Get("PathBackup") + "\\" + fileName;
                     if (writeCSV(timestamp, backupFilePath, tableName) == true)
                     {
                         // Write to db
@@ -202,32 +202,37 @@ namespace Capture
             // CSV headers
             // TODO : Add light source and microcsope headers
             sw.WriteLine(String.Format("Date of characterisation:,{0}", ts));
-            sw.WriteLine(String.Format("Hardware:,{0}", tableName));
+            sw.WriteLine(String.Format("Microscope Manufacturer:,{0}", comboBoxMicroscopeManufacturer.SelectedItem));
+            sw.WriteLine(String.Format("Microscope Model:,{0}", comboBoxMicroscopeModel.SelectedItem));
+            sw.WriteLine(String.Format("Microscope Arm:,{0}", comboBoxMicroscopeArm.SelectedItem));
+            sw.WriteLine(String.Format("Microscope Optic:,{0}", comboBoxMicroscopeOptic.SelectedItem));
+            sw.WriteLine(String.Format("Lightsource Manufacturer:,{0}", comboBoxLightsourceManufacturer.SelectedItem));
+            sw.WriteLine(String.Format("Lightsource Model:,{0}", comboBoxLightsourceModel.SelectedItem));
+            sw.WriteLine(String.Format("Lightsource Wavelength,{0}", comboBoxLightsourceWavelength.SelectedItem));
+            sw.WriteLine(String.Format("Attachment Method,{0}", comboBoxAttachmentMethod.SelectedItem));
             sw.WriteLine(String.Format("Spectrometer Serial Number:,{0}", spectrometerSerialNo));
             sw.WriteLine(String.Format("Spectrometer Calibration File:,{0}", calibrationFile));
             sw.WriteLine();
             sw.WriteLine("Wavelengths,Absolute Spectral Irradiance (uW/cm^2/nm),Intensity Counts,Dark Scan,Calibration File");
 
-            for (int i = 0; i < spectrometer.absoluteSpectralIrradianceData.Length; i++)
+            int i = 0;
+            for (i = 0; i < spectrometer.spectrometerCalibrationData.Length; i++)
             {
                 // Write wavelength, absolute spectral irradiance, intensity count, dark scan and calibration data
-                string wavelength = String.Format("{0},", spectrometer.spectrometerWavelengths[i].ToString());
-                string asi = String.Format("{0},", spectrometer.absoluteSpectralIrradianceData[i].ToString());
-                string intensityCount = String.Format("{0},", spectrometer.lightScanData[i].ToString());
-                string darkScan = String.Format("{0},", spectrometer.darkScanData[i].ToString());
-                string calibration = String.Format("{0}", spectrometer.spectrometerCalibrationData[i].ToString());
+                string wavelength = String.Format("{0},", spectrometer.spectrometerWavelengths[i]);
+                string asi = String.Format("{0},", spectrometer.absoluteSpectralIrradianceData[i]);
+                string intensityCount = String.Format("{0},", spectrometer.lightScanData[i]);
+                string darkScan = String.Format("{0},", spectrometer.darkScanData[i]);
+                string calibration = String.Format("{0}", spectrometer.spectrometerCalibrationData[i]);
 
                 sw.WriteLine(wavelength + asi + intensityCount + darkScan + calibration);
             }
+
+            sw.Close();
+
             flag = true;
 
             return flag;
-        }
-
-
-        private void Parse()
-        {
-
         }
     }
 }

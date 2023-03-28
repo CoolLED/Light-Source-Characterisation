@@ -207,7 +207,7 @@ namespace Capture
                         {
                             DeviceID = devices[i].Id;
                             state = IniProcessState.SetIntegrationTime;
-
+                            run = true;
                         }
                         else
                         {

@@ -21,7 +21,7 @@ namespace Capture
         {
             loadComboBoxes();
         }
-
+        
         private void loadComboBoxes()
         {
             comboBoxMicroscopeManufacturer.Items.Clear();
